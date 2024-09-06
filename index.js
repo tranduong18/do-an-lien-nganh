@@ -11,7 +11,7 @@ const database = require("./config/database");
 database.connect();
 
 const routeAdmin = require("./routes/admin/index.route");
-// const routeClient = require("./routes/client/index.route");
+const routeClient = require("./routes/client/index.route");
 const systemConfig = require("./config/system");
 
 const app = express();
@@ -43,7 +43,7 @@ app.use(express.static(`${__dirname}/public`));
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 routeAdmin.index(app);
-// routeClient.index(app);
+routeClient.index(app);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
