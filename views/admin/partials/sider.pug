@@ -1,0 +1,10 @@
+.sider
+  .inner-menu
+    ul 
+      li
+        a(href=`/${prefixAdmin}/dashboard`) Tổng quan
+
+      if(role.permissions.includes("products_view"))
+        li
+          a(href=`/${prefixAdmin}/products`) Sản phẩm
+      

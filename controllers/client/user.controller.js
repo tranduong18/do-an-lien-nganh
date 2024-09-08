@@ -89,150 +89,150 @@ module.exports.logout = async (req, res) => {
 }
 
 // [GET] /user/password/forgot
-module.exports.forgotPassword = async (req, res) => {
-    res.render("client/pages/user/forgot-password", {
-        pageTitle: "Lấy lại mật khẩu",
-    });
-}
+// module.exports.forgotPassword = async (req, res) => {
+//     res.render("client/pages/user/forgot-password", {
+//         pageTitle: "Lấy lại mật khẩu",
+//     });
+// }
 
-// [POST] /user/password/forgot
-module.exports.forgotPasswordPost = async (req, res) => {
-    const email = req.body.email;
+// // [POST] /user/password/forgot
+// module.exports.forgotPasswordPost = async (req, res) => {
+//     const email = req.body.email;
 
-    const user = await User.findOne({
-        email: email,
-        deleted: false
-    });
+//     const user = await User.findOne({
+//         email: email,
+//         deleted: false
+//     });
 
-    if(!user){
-        req.flash("error", "Email không tồn tại trong hệ thống!");
-        res.redirect("back");
-        return;
-    }
+//     if(!user){
+//         req.flash("error", "Email không tồn tại trong hệ thống!");
+//         res.redirect("back");
+//         return;
+//     }
 
-    const otp = generateHelper.generateRandomNumber(6);
+//     const otp = generateHelper.generateRandomNumber(6);
 
-    // Việc 1: Lưu email, OTP vào database
-    const forgotPasswordData = {
-        email: email,
-        otp: otp,
-        expireAt: Date.now() + 3 * 60 * 1000
-    };
+//     // Việc 1: Lưu email, OTP vào database
+//     const forgotPasswordData = {
+//         email: email,
+//         otp: otp,
+//         expireAt: Date.now() + 3 * 60 * 1000
+//     };
 
-    const forgotPassword = new ForgotPassword(forgotPasswordData);
-    await forgotPassword.save();
+//     const forgotPassword = new ForgotPassword(forgotPasswordData);
+//     await forgotPassword.save();
 
-    // Việc 2: Gửi mã OTP qua email của user
-    const subject = "Mã OTP lấy lại mật khẩu.";
-    const htmlSendMail = `Mã OTP xác thực của bạn là <b style= "color: green;">${otp}</b>. Mã OTP có hiệu lực trong 3 phút. Vui lòng không cung cấp mã OTP cho người khác.`
-    sendEmailHelper.sendEmail(email, subject, htmlSendMail);
+//     // Việc 2: Gửi mã OTP qua email của user
+//     const subject = "Mã OTP lấy lại mật khẩu.";
+//     const htmlSendMail = `Mã OTP xác thực của bạn là <b style= "color: green;">${otp}</b>. Mã OTP có hiệu lực trong 3 phút. Vui lòng không cung cấp mã OTP cho người khác.`
+//     sendEmailHelper.sendEmail(email, subject, htmlSendMail);
 
-    res.redirect(`/user/password/otp?email=${email}`);
-}
+//     res.redirect(`/user/password/otp?email=${email}`);
+// }
 
-// [GET] /user/password/otp
-module.exports.otpPassword = async (req, res) => {
-    const email = req.query.email;
+// // [GET] /user/password/otp
+// module.exports.otpPassword = async (req, res) => {
+//     const email = req.query.email;
 
-    res.render("client/pages/user/otp-password", {
-        pageTitle: "Xác thực OTP",
-        email: email
-    });
-}
+//     res.render("client/pages/user/otp-password", {
+//         pageTitle: "Xác thực OTP",
+//         email: email
+//     });
+// }
 
-// [POST] /user/password/otp
-module.exports.otpPasswordPost = async (req, res) => {
-    const email = req.body.email;
-    const otp = req.body.otp;
+// // [POST] /user/password/otp
+// module.exports.otpPasswordPost = async (req, res) => {
+//     const email = req.body.email;
+//     const otp = req.body.otp;
 
-    const result = await ForgotPassword.findOne({
-        email: email,
-        otp: otp
-    });
+//     const result = await ForgotPassword.findOne({
+//         email: email,
+//         otp: otp
+//     });
 
-    if(!result){
-        req.flash("error", "OTP không hợp lệ!");
-        res.redirect("back");
-        return;
-    }
+//     if(!result){
+//         req.flash("error", "OTP không hợp lệ!");
+//         res.redirect("back");
+//         return;
+//     }
 
-    const user = await User.findOne({
-        email: email
-    });
+//     const user = await User.findOne({
+//         email: email
+//     });
 
-    res.cookie("tokenUser", user.tokenUser);
+//     res.cookie("tokenUser", user.tokenUser);
 
-    res.redirect("/user/password/reset");
-}
+//     res.redirect("/user/password/reset");
+// }
 
-// [GET] /user/password/reset
-module.exports.resetPassword = async (req, res) => {
-    res.render("client/pages/user/reset-password", {
-        pageTitle: "Đổi mật khẩu mới",
-    });
-}
+// // [GET] /user/password/reset
+// module.exports.resetPassword = async (req, res) => {
+//     res.render("client/pages/user/reset-password", {
+//         pageTitle: "Đổi mật khẩu mới",
+//     });
+// }
 
-// [PATCH] /user/password/reset
-module.exports.resetPasswordPatch = async (req, res) => {
-    const password = req.body.password;
-    const tokenUser = req.cookies.tokenUser;
+// // [PATCH] /user/password/reset
+// module.exports.resetPasswordPatch = async (req, res) => {
+//     const password = req.body.password;
+//     const tokenUser = req.cookies.tokenUser;
 
-    await User.updateOne({
-        tokenUser: tokenUser,
-        deleted: false
-    }, {
-        password: md5(password)
-    });
+//     await User.updateOne({
+//         tokenUser: tokenUser,
+//         deleted: false
+//     }, {
+//         password: md5(password)
+//     });
 
-    req.flash("success", "Đổi mật khẩu thành công!");
+//     req.flash("success", "Đổi mật khẩu thành công!");
 
-    res.redirect("/");
-}
+//     res.redirect("/");
+// }
 
-// [GET] /user/profile
-module.exports.profile = async (req, res) => {
-    res.render("client/pages/user/profile", {
-        pageTitle: "Thông tin cá nhân",
-    });
-}
+// // [GET] /user/profile
+// module.exports.profile = async (req, res) => {
+//     res.render("client/pages/user/profile", {
+//         pageTitle: "Thông tin cá nhân",
+//     });
+// }
 
-// [GET] /user/profile/edit
-module.exports.editProfile = async (req, res) => {
-    res.render("client/pages/user/editProfile", {
-        pageTitle: "Sửa thông tin cá nhân",
-    });
-}
+// // [GET] /user/profile/edit
+// module.exports.editProfile = async (req, res) => {
+//     res.render("client/pages/user/editProfile", {
+//         pageTitle: "Sửa thông tin cá nhân",
+//     });
+// }
 
-// [PATCH] /user/profile/edit
-module.exports.editPatch = async (req, res) => {
-    await User.updateOne({
-        _id: res.locals.user.id
-    }, req.body);
+// // [PATCH] /user/profile/edit
+// module.exports.editPatch = async (req, res) => {
+//     await User.updateOne({
+//         _id: res.locals.user.id
+//     }, req.body);
 
-    req.flash("success", "Cập nhật thành công!");
+//     req.flash("success", "Cập nhật thành công!");
 
-    res.redirect("back");
-}
+//     res.redirect("back");
+// }
 
-// [GET] /user/profile/changePassword
-module.exports.changePassword = async (req, res) => {
-    res.render("client/pages/user/change-password", {
-        pageTitle: "Đổi mật khẩu"
-    });
-}
+// // [GET] /user/profile/changePassword
+// module.exports.changePassword = async (req, res) => {
+//     res.render("client/pages/user/change-password", {
+//         pageTitle: "Đổi mật khẩu"
+//     });
+// }
 
-// [PATCH] /user/profile/changePassword
-module.exports.changePassPatch = async (req, res) => {
-    const password = req.body.password;
-    const tokenUser = req.cookies.tokenUser;
+// // [PATCH] /user/profile/changePassword
+// module.exports.changePassPatch = async (req, res) => {
+//     const password = req.body.password;
+//     const tokenUser = req.cookies.tokenUser;
 
-    await User.updateOne({
-        tokenUser: tokenUser,
-    }, {
-        password: md5(password)
-    });
+//     await User.updateOne({
+//         tokenUser: tokenUser,
+//     }, {
+//         password: md5(password)
+//     });
 
-    req.flash("success", "Đổi mật khẩu thành công!");
+//     req.flash("success", "Đổi mật khẩu thành công!");
 
-    res.redirect("/user/profile");
-}
+//     res.redirect("/user/profile");
+// }

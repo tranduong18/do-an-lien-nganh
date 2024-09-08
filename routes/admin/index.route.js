@@ -1,4 +1,4 @@
-
+const productRoute = require("./product.route");
 const authRoute = require("./auth.route");
 const systemConfig = require("../../config/system");
 
@@ -8,4 +8,6 @@ module.exports.index = (app) => {
     const path = `/${systemConfig.prefixAdmin}`;
 
     app.use(`${path}/auth`, authRoute);
+
+    app.use(`${path}/products`, productRoute);
 }
