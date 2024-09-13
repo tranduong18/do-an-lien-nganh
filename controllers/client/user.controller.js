@@ -189,30 +189,30 @@ module.exports.logout = async (req, res) => {
 //     res.redirect("/");
 // }
 
-// // [GET] /user/profile
-// module.exports.profile = async (req, res) => {
-//     res.render("client/pages/user/profile", {
-//         pageTitle: "Thông tin cá nhân",
-//     });
-// }
+// [GET] /user/profile
+module.exports.profile = async (req, res) => {
+    res.render("client/pages/user/profile", {
+        pageTitle: "Thông tin cá nhân",
+    });
+}
 
-// // [GET] /user/profile/edit
-// module.exports.editProfile = async (req, res) => {
-//     res.render("client/pages/user/editProfile", {
-//         pageTitle: "Sửa thông tin cá nhân",
-//     });
-// }
+// [GET] /user/profile/edit
+module.exports.editProfile = async (req, res) => {
+    res.render("client/pages/user/editProfile", {
+        pageTitle: "Sửa thông tin cá nhân",
+    });
+}
 
-// // [PATCH] /user/profile/edit
-// module.exports.editPatch = async (req, res) => {
-//     await User.updateOne({
-//         _id: res.locals.user.id
-//     }, req.body);
+// [PATCH] /user/profile/edit
+module.exports.editPatch = async (req, res) => {
+    await User.updateOne({
+        _id: res.locals.user.id
+    }, req.body);
 
-//     req.flash("success", "Cập nhật thành công!");
+    req.flash("success", "Cập nhật thành công!");
 
-//     res.redirect("back");
-// }
+    res.redirect("back");
+}
 
 // // [GET] /user/profile/changePassword
 // module.exports.changePassword = async (req, res) => {
