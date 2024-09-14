@@ -3,8 +3,10 @@ const homeRoute = require("./home.route");
 const userRoute = require("./user.route");
 
 const userMiddleware = require("../../middlewares/client/user.middleware");
+const categoryMiddleware = require("../../middlewares/client/category.middleware");
 
 module.exports.index = (app) => {
+    app.use(categoryMiddleware.category);
     app.use(userMiddleware.infoUser);
 
     app.use("/", homeRoute);

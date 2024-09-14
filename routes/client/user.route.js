@@ -23,36 +23,23 @@ router.post("/login", validate.login, controller.loginPost);
 router.get("/logout", controller.logout);
 // End Auth
 
-// Password
-// router.get("/password/forgot", controller.forgotPassword);
 
-// router.post("/password/forgot", validate.forgotPassword, controller.forgotPasswordPost);
+// Profile
+router.get("/profile", userMiddleware.requireAuth, controller.profile);
 
-// router.get("/password/otp", controller.otpPassword);
+router.get("/profile/edit", userMiddleware.requireAuth, controller.editProfile);
 
-// router.post("/password/otp", controller.otpPasswordPost);
-
-// router.get("/password/reset", userMiddleware.requireAuth, controller.resetPassword);
-
-// router.patch("/password/reset", userMiddleware.requireAuth, controller.resetPasswordPatch);
-// End Password
-
-// // Profile
-// router.get("/profile", userMiddleware.requireAuth, controller.profile);
-
-// router.get("/profile/edit", userMiddleware.requireAuth, controller.editProfile);
-
-// router.patch(
-//     "/profile/edit", 
-//     userMiddleware.requireAuth, 
-//     upload.single('avatar'), 
-//     uploadCloud.uploadSingle,
-//     controller.editPatch
-// );
+router.patch(
+    "/profile/edit", 
+    userMiddleware.requireAuth, 
+    upload.single('avatar'), 
+    uploadCloud.uploadSingle,
+    controller.editPatch
+);
 
 // router.get("/profile/changePassword", userMiddleware.requireAuth, controller.changePassword);
 
 // router.patch("/profile/changePassword", userMiddleware.requireAuth, validate.changePass, controller.changePassPatch);
-// // End Profile
+// End Profile
 
 module.exports = router;
