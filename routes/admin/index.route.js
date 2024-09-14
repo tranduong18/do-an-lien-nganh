@@ -1,3 +1,4 @@
+const dashboardRoute = require("./dashboard.route");
 const productRoute = require("./product.route");
 const authRoute = require("./auth.route");
 const roleRoute = require("./role.route");
@@ -8,6 +9,8 @@ const authMiddleware = require("../../middlewares/admin/auth.middleware");
 
 module.exports.index = (app) => {
     const path = `/${systemConfig.prefixAdmin}`;
+
+    app.use(`${path}/dashboard`, authMiddleware.requireAuth, dashboardRoute);
 
     app.use(`${path}/auth`, authRoute);
 
