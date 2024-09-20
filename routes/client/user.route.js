@@ -37,9 +37,9 @@ router.patch(
     controller.editPatch
 );
 
-// router.get("/profile/changePassword", userMiddleware.requireAuth, controller.changePassword);
+router.get("/profile/changePassword", userMiddleware.requireAuth, controller.changePassword);
 
-// router.patch("/profile/changePassword", userMiddleware.requireAuth, validate.changePass, controller.changePassPatch);
+router.patch("/profile/changePassword", userMiddleware.requireAuth, validate.changePass, controller.changePassPatch);
 // End Profile
 
 module.exports = router;
