@@ -1,5 +1,6 @@
 const dashboardRoute = require("./dashboard.route");
 const productRoute = require("./product.route");
+const productCategoryRoute = require("./product-category.route");
 const authRoute = require("./auth.route");
 const roleRoute = require("./role.route");
 const accountsRoute = require("./account.route");
@@ -16,6 +17,8 @@ module.exports.index = (app) => {
     app.use(`${path}/auth`, authRoute);
 
     app.use(`${path}/products`, authMiddleware.requireAuth, productRoute);
+
+    app.use(`${path}/products-category`, authMiddleware.requireAuth, productCategoryRoute);
 
     app.use(`${path}/roles`, authMiddleware.requireAuth, roleRoute);
     
