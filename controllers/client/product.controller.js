@@ -44,6 +44,20 @@ module.exports.category = async(req, res) => {
         deleted: false
     });
 
+    let parentCategorySlug = "";
+    let parentCategoryTitle = "";
+
+    if(category.parent_id != ""){
+        const parentCategory = await ProductCategory.findOne({
+            _id: category.parent_id,
+            status: "active",
+            deleted: false
+        });
+        
+        parentCategorySlug = parentCategory.slug;
+        parentCategoryTitle = parentCategory.title;
+    }    
+
     const allSubCategory = [];
 
     const getSubCategory = async(currentId) => {
@@ -95,7 +109,9 @@ module.exports.category = async(req, res) => {
         products: products,
         pagination: pagination,
         slug: slugCategory,
-        title: category.title
+        title: category.title,
+        parentCategoryTitle: parentCategoryTitle,
+        parentCategorySlug: parentCategorySlug
     });
 }
 
