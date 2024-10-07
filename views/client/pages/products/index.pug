@@ -35,22 +35,16 @@ block main
                   label(for='price-all' style="color: red; cursor: pointer") Tất cả
               
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              label(for='0-100' filter-price = "0-100" style="color: #6C757D; cursor: pointer" ) $0 - $100
+              label(for='0-100' filter-price = "0-199000" style="color: #6C757D; cursor: pointer" ) Dưới 200.000
 
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              label(for='100-200' filter-price = "100-200" style="color: #6C757D ; cursor: pointer") $100 - $200
+              label(for='100-200' filter-price = "200000-500000" style="color: #6C757D ; cursor: pointer") 200.000 - 500.000
 
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              label(for='200-300' filter-price = "200-300" style="color: #6C757D; cursor: pointer") $200 - $300
+              label(for='200-300' filter-price = "500000-1000000" style="color: #6C757D; cursor: pointer") 500.000 - 1.000.000
 
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              label(for='300-400' filter-price = "300-400" style="color: #6C757D; cursor: pointer") $300 - $400
-
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              label(for='400-500' filter-price = "400-500" style="color: #6C757D; cursor: pointer") $400 - $500
-
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between
-              label(for='500-600' filter-price = "500-600" style="color: #6C757D; cursor: pointer") $500 - $600
+              label(for='300-400' filter-price = "1000000-10000000" style="color: #6C757D; cursor: pointer") Trên 1.000.000
         // Hết Lọc giá tiền
         
         // Size Start
@@ -102,9 +96,9 @@ block main
                 .text-center.py-4
                   a.h6.text-decoration-none.text-truncate(href=`/products/detail/${item.slug}`) #{item.title}
                   .d-flex.align-items-center.justify-content-center.mt-2
-                    h5(style="color: red") $#{item.priceNew}
+                    h5(style="color: red") #{item.priceNew.toLocaleString()} 
                     h6.text-muted.ml-2
-                      del(style="color: green") $#{item.price}
+                      del(style="color: green") #{item.price.toLocaleString()}
                   .d-flex.align-items-center.justify-content-center.mb-1
                     small.fa.fa-star.text-primary.mr-1
                     small.fa.fa-star.text-primary.mr-1
