@@ -33,7 +33,7 @@ block main
                     img(src=product.productInfo.thumbnail alt=product.productInfo.title width="80px")
                   td.align-middle
                     a(href=`/products/detail/${product.productInfo.slug}`, style="color: #000") #{product.productInfo.title}
-                  td.align-middle #{product.productInfo.priceNew}$
+                  td.align-middle #{product.productInfo.priceNew.toLocaleString()} ₫
                   td.align-middle
                     .input-group.quantity.mx-auto(style='width: 125px;')
                       each size in product.size
@@ -47,7 +47,7 @@ block main
                             option(value="xs" selected = (size.name == 'xs')) XS
                        
                           input.form-control(type='number' value=size.quantity min="1" max=product.stock name="quantity" product-id=product.productId=product.productId data-size-name=size.name)
-                  td.align-middle #{product.totalPrice}$
+                  td.align-middle #{product.totalPrice.toLocaleString()} ₫
                   td.align-middle
                     a(href=`/cart/delete/${product.productId}`, class="btn btn-danger") Xóa
             else
@@ -65,13 +65,13 @@ block main
           .border-bottom.pb-2
             .d-flex.justify-content-between.mb-3
               h6 Tổng phụ
-              h6 #{cartDetail.totalPrice}$
+              h6 #{cartDetail.totalPrice.toLocaleString()} ₫
             .d-flex.justify-content-between
               h6.font-weight-medium Phí Ship
-              h6.font-weight-medium $10
+              h6.font-weight-medium 10,000 ₫
           .pt-2
             .d-flex.justify-content-between.mt-2
               h5 Tổng tiền
-              h5 #{cartDetail.totalPrice}$
+              h5 #{cartDetail.totalPrice.toLocaleString()} ₫
             a(href="/checkout").btn.btn-block.btn-primary.font-weight-bold.my-3.py-3 Tiến hành thanh toán
   // Cart End

@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/pagination.pug
 
 block main
   // Breadcrumb Start
@@ -7,9 +8,6 @@ block main
     .row.px-xl-5
       .col-12
         nav.breadcrumb.bg-light.mb-30
-          //- a.breadcrumb-item.text-dark(href='#') Trang chủ
-          //- a.breadcrumb-item.text-dark(href='#') Sản phẩm
-          //- span.breadcrumb-item.active #{keyword}
           +box-head("Kết quả tìm kiếm: " + keyword)
   // Breadcrumb End
 
@@ -18,66 +16,32 @@ block main
     .row.px-xl-5
       // Shop Sidebar Start
       .col-lg-3.col-md-4
-        // Price Start
+        // Lọc giá tiền
         h5.section-title.position-relative.text-uppercase.mb-3
-          span.bg-secondary.pr-3 Filter by price
+          span.bg-secondary.pr-3 Lọc theo giá
         .bg-light.p-4.mb-30
           form
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#price-all.custom-control-input(type='checkbox' checked='')
-              label.custom-control-label(for='price-all') All Price
-              span.badge.border.font-weight-normal 1000
+              if(!slug)
+                a(href="/products")
+                  label(for='price-all' style="color: red; cursor: pointer") Tất cả
+              else
+                a(href=`/products/${slug}`)
+                  label(for='price-all' style="color: red; cursor: pointer") Tất cả
+              
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#price-1.custom-control-input(type='checkbox')
-              label.custom-control-label(for='price-1') $0 - $100
-              span.badge.border.font-weight-normal 150
+              label(for='0-199000' filter-price = "0-199000" style="color: #6C757D; cursor: pointer" ) Dưới 200.000 ₫
+
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#price-2.custom-control-input(type='checkbox')
-              label.custom-control-label(for='price-2') $100 - $200
-              span.badge.border.font-weight-normal 295
+              label(for='200000-500000' filter-price = "200000-500000" style="color: #6C757D ; cursor: pointer") 200.000 - 500.000 ₫
+
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#price-3.custom-control-input(type='checkbox')
-              label.custom-control-label(for='price-3') $200 - $300
-              span.badge.border.font-weight-normal 246
+              label(for='500000-1000000' filter-price = "500000-1000000" style="color: #6C757D; cursor: pointer") 500.000 - 1.000.000 ₫
+
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#price-4.custom-control-input(type='checkbox')
-              label.custom-control-label(for='price-4') $300 - $400
-              span.badge.border.font-weight-normal 145
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between
-              input#price-5.custom-control-input(type='checkbox')
-              label.custom-control-label(for='price-5') $400 - $500
-              span.badge.border.font-weight-normal 168
-        // Price End
-        // Color Start
-        h5.section-title.position-relative.text-uppercase.mb-3
-          span.bg-secondary.pr-3 Filter by color
-        .bg-light.p-4.mb-30
-          form
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#color-all.custom-control-input(type='checkbox' checked='')
-              label.custom-control-label(for='price-all') All Color
-              span.badge.border.font-weight-normal 1000
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#color-1.custom-control-input(type='checkbox')
-              label.custom-control-label(for='color-1') Black
-              span.badge.border.font-weight-normal 150
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#color-2.custom-control-input(type='checkbox')
-              label.custom-control-label(for='color-2') White
-              span.badge.border.font-weight-normal 295
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#color-3.custom-control-input(type='checkbox')
-              label.custom-control-label(for='color-3') Red
-              span.badge.border.font-weight-normal 246
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#color-4.custom-control-input(type='checkbox')
-              label.custom-control-label(for='color-4') Blue
-              span.badge.border.font-weight-normal 145
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between
-              input#color-5.custom-control-input(type='checkbox')
-              label.custom-control-label(for='color-5') Green
-              span.badge.border.font-weight-normal 168
-        // Color End
+              label(for='1000000-10000000' filter-price = "1000000-10000000" style="color: #6C757D; cursor: pointer") Trên 1.000.000 ₫
+        // Hết Lọc giá tiền
+        
         // Size Start
         h5.section-title.position-relative.text-uppercase.mb-3
           span.bg-secondary.pr-3 Filter by size
@@ -118,20 +82,23 @@ block main
                 .product-img.position-relative.overflow-hidden
                   img.img-fluid.w-100(src=item.thumbnail, alt=item.title)
                   .product-action
-                    a.btn.btn-outline-dark.btn-square(href='')
+                    a.btn.btn-outline-dark.btn-square(link=`/cart/addIcon/${item.id}` add-to-cart)
                       i.fa.fa-shopping-cart
-                    a.btn.btn-outline-dark.btn-square(href='')
-                      i.far.fa-heart
-                    a.btn.btn-outline-dark.btn-square(href='')
-                      i.fa.fa-sync-alt
-                    a.btn.btn-outline-dark.btn-square(href='')
+                    if(user)
+                      if item.isLoved.some(love => love.userId === user.id)
+                        a.btn.btn-outline-dark.btn-square(link=`/wishlist/delete/${item.id}` delete-to-wishlist)
+                          i.fas.fa-heart
+                      else
+                        a.btn.btn-outline-dark.btn-square(link=`/wishlist/add/${item.id}` add-to-wishlist)
+                          i.far.fa-heart
+                    a.btn.btn-outline-dark.btn-square(href=`/products/detail/${item.slug}`)
                       i.fa.fa-search
                 .text-center.py-4
                   a.h6.text-decoration-none.text-truncate(href=`/products/detail/${item.slug}`) #{item.title}
                   .d-flex.align-items-center.justify-content-center.mt-2
-                    h5 $123.00
+                    h5(style="color: red") #{item.priceNew.toLocaleString().toLocaleString()} ₫
                     h6.text-muted.ml-2
-                      del $123.00
+                      del(style="color: green") #{item.price.toLocaleString()} ₫
                   .d-flex.align-items-center.justify-content-center.mb-1
                     small.fa.fa-star.text-primary.mr-1
                     small.fa.fa-star.text-primary.mr-1
@@ -141,17 +108,6 @@ block main
                     small (99)
 
           .col-12
-            nav
-              ul.pagination.justify-content-center
-                li.page-item.disabled
-                  a.page-link(href='#') Previous
-                li.page-item.active
-                  a.page-link(href='#') 1
-                li.page-item
-                  a.page-link(href='#') 2
-                li.page-item
-                  a.page-link(href='#') 3
-                li.page-item
-                  a.page-link(href='#') Next
+            +pagination(pagination)
       // Shop Product End
   // Shop End

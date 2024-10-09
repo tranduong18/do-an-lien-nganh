@@ -96,9 +96,9 @@ block main
                 .text-center.py-4
                   a.h6.text-decoration-none.text-truncate(href=`/products/detail/${item.slug}`) #{item.title}
                   .d-flex.align-items-center.justify-content-center.mt-2
-                    h5(style="color: red") #{item.priceNew.toLocaleString()} 
+                    h5(style="color: red") #{item.priceNew.toLocaleString().toLocaleString()} ₫
                     h6.text-muted.ml-2
-                      del(style="color: green") #{item.price.toLocaleString()}
+                      del(style="color: green") #{item.price.toLocaleString()} ₫
                   .d-flex.align-items-center.justify-content-center.mb-1
                     small.fa.fa-star.text-primary.mr-1
                     small.fa.fa-star.text-primary.mr-1

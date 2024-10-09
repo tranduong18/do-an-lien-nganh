@@ -184,8 +184,7 @@ module.exports.create_url_payment = async (req, res) => {
     let secretKey = vnp_HashSecret;
 
     const orderId = req.query.orderId;
-    let amount = parseFloat(req.query.amount);
-    
+    let amount = req.query.amount;
     
     const locale = 'vn';
     const currCode = 'VND';
@@ -198,7 +197,7 @@ module.exports.create_url_payment = async (req, res) => {
     vnp_Params['vnp_TxnRef'] = orderId;
     vnp_Params['vnp_OrderInfo'] = 'Thanh toan cho ma GD:' + orderId;
     vnp_Params['vnp_OrderType'] = 'other';
-    vnp_Params['vnp_Amount'] = parseInt(amount * 100000) ;
+    vnp_Params['vnp_Amount'] = parseInt(amount) * 100;
     vnp_Params['vnp_IpAddr'] = ipAddr;
     vnp_Params['vnp_ReturnUrl'] = returnUrl;
     vnp_Params['vnp_CreateDate'] = createDate;

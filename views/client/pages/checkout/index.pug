@@ -38,11 +38,11 @@ block main
                       width="80px"
                     )
                   td #{product.productInfo.title}
-                  td #{product.productInfo.priceNew}$
+                  td #{product.productInfo.priceNew.toLocaleString()} ₫
                   td #{product.totalQuantity}
-                  td #{product.totalPrice}$
+                  td #{product.totalPrice.toLocaleString()} ₫
 
-          h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice}$
+          h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice.toLocaleString()} ₫
 
       .row
         .col-12
