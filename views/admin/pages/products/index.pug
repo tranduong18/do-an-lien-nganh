@@ -91,7 +91,7 @@ block main
                     height="auto"
                   )
                 td #{item.title}
-                td #{item.price}$
+                td #{item.price.toLocaleString()} ₫
                 if(role.permissions.includes("products_edit"))
                   td
                     input(
