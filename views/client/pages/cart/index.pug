@@ -30,7 +30,7 @@ block main
               each product, index in cartDetail.products
                 tr
                   td.align-middle
-                    img(src=product.productInfo.thumbnail alt=product.productInfo.title width="80px")
+                    img(src=product.productInfo.thumbnail[0] alt=product.productInfo.title width="80px")
                   td.align-middle
                     a(href=`/products/detail/${product.productInfo.slug}`, style="color: #000") #{product.productInfo.title}
                   td.align-middle #{product.productInfo.priceNew.toLocaleString()} ₫

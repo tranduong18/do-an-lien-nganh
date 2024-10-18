@@ -144,7 +144,7 @@ block main
         class="form-group"
         upload-image
       )
-        label(for="thumbnail") Ảnh
+        label(for="thumbnail") Chọn nhiều ảnh
         input(
           type="file"
           class="form-control-file"
@@ -152,12 +152,12 @@ block main
           name="thumbnail"
           accept="image/*"
           upload-image-input
+          multiple
         )
-        img(
-          src=""
-          class="image-preview"
-          upload-image-preview
+        div(
+          class="image-preview-container"
         )
+
       div(class="form-group")
         label(for="position") Vị trí
         input(

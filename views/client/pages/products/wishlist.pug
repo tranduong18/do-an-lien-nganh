@@ -19,7 +19,7 @@ block main
               .col-lg-4.col-md-6.col-sm-6.pb-1
                 .product-item.bg-light.mb-4
                   .product-img.position-relative.overflow-hidden
-                    img.img-fluid.w-100(src=item.productInfo.thumbnail, alt=item.title)
+                    img.img-fluid.w-100(src=item.productInfo.thumbnail[0], alt=item.title)
                     .product-action
                       a.btn.btn-outline-dark.btn-square(href=`/products/detail/${item.productInfo.slug}`)
                         i.fa.fa-search
@@ -28,9 +28,9 @@ block main
                   .text-center.py-4
                     a.h6.text-decoration-none.text-truncate(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
                     .d-flex.align-items-center.justify-content-center.mt-2
-                      h5(style="color: red") $#{item.productInfo.priceNew}
+                      h5(style="color: red") #{item.productInfo.priceNew.toLocaleString()} ₫
                       h6.text-muted.ml-2
-                        del(style="color: green") $#{item.productInfo.price}
+                        del(style="color: green") #{item.productInfo.price.toLocaleString()} ₫
                     .d-flex.align-items-center.justify-content-center.mb-1
                       small.fa.fa-star.text-primary.mr-1
                       small.fa.fa-star.text-primary.mr-1

@@ -86,8 +86,9 @@ module.exports.index = async (req, res) => {
     }
 
     item.updatedAtFormat = moment(item.updatedAt).format("DD/MM/YY HH:mm:ss");
+  
+    item.image = item.thumbnail[0];
   }
-
 
   res.render("admin/pages/products/index", {
     pageTitle: "Quản lý sản phẩm",
@@ -244,6 +245,8 @@ module.exports.edit = async (req, res) => {
       deleted: false
     });
 
+    console.log(product);
+
     if(product) {
       const categories = await ProductCategory.find({
         deleted: false
@@ -308,6 +311,9 @@ module.exports.detail = async (req, res) => {
       deleted: false
     });
 
+    product.image = product.thumbnail[0];
+
+    console.log(product);
     if(product) {
       res.render("admin/pages/products/detail", {
         pageTitle: "Chi tiết sản phẩm",

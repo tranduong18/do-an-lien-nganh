@@ -95,7 +95,7 @@ block main
         class="form-group"
         upload-image
       )
-        label(for="thumbnail") Ảnh
+        label(for="thumbnail") Chọn nhiều ảnh
         input(
           type="file"
           class="form-control-file"
@@ -103,12 +103,20 @@ block main
           name="thumbnail"
           accept="image/*"
           upload-image-input
+          multiple
         )
-        img(
-          src=product.thumbnail
-          class="image-preview"
-          upload-image-preview
+        div(
+          class="image-preview-container"
         )
+          if(product.thumbnail)
+            each item in product.thumbnail
+              img(
+                src=item
+                class="image-preview"
+                upload-image-preview
+                style="margin-right: 10px"
+              )
+
       div(class="form-group")
         label(for="position") Vị trí
         input(

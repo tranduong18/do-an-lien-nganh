@@ -228,3 +228,15 @@ if(sizeRadios.length > 0){
     });
 }
 // Hết Xử lý size của sản phẩm
+
+// detail-product-images
+const productImages = document.querySelector(".product-detail-images");
+if(productImages){
+    const swiper = new Swiper(".product-detail-images", {
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        },
+    });
+}
+// End detail-product-images

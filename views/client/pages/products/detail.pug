@@ -12,23 +12,19 @@ block main
           span.breadcrumb-item.active #{product.title}
   // Breadcrumb End
   // Shop Detail Start
-  .container-fluid.pb-5
+  .container-fluid.pb-5.product-detail
     .row.px-xl-5
       .col-lg-5.mb-30
-        #product-carousel.carousel.slide(data-ride='carousel')
-          .carousel-inner.bg-light
-            .carousel-item.active
-              img.w-100.h-100(src=product.thumbnail, alt=product.title)
-            //- .carousel-item
-            //-   img.w-100.h-100(src='/images/product-2.jpg' alt='Image')
-            //- .carousel-item
-            //-   img.w-100.h-100(src='/images/product-3.jpg' alt='Image')
-            //- .carousel-item
-            //-   img.w-100.h-100(src='/images/product-4.jpg' alt='Image')
-          a.carousel-control-prev(href='#product-carousel' data-slide='prev')
-            i.fa.fa-2x.fa-angle-left.text-dark
-          a.carousel-control-next(href='#product-carousel' data-slide='next')
-            i.fa.fa-2x.fa-angle-right.text-dark
+        .inner-images
+          div(class="swiper product-detail-images")
+            .swiper-wrapper
+              each image in product.thumbnail
+                .swiper-slide
+                  .inner-image
+                    img(src=image)
+            .swiper-button-next
+            .swiper-button-prev
+
       .col-lg-7.h-auto.mb-30
         .h-100.bg-light.p-30
           h3 #{product.title}
@@ -104,7 +100,7 @@ block main
                 .col-md-6
                   h4.mb-4 1 review for &quot;Product Name&quot;
                   .media.mb-4
-                    img.img-fluid.mr-3.mt-1(src='img/user.jpg' alt='Image' style='width: 45px;')
+                    img.img-fluid.mr-3.mt-1(src='/images/user.jpg' alt='Image' style='width: 45px;')
                     .media-body
                       h6
                         | John Doe
