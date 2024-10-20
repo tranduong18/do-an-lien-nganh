@@ -1,9 +1,9 @@
-// const Setting = require("../../models/setting.model");
+const Setting = require("../../models/setting.model");
 
-// module.exports.setting = async (req, res, next) => {
-//     const setting = await Setting.findOne({});
+module.exports.setting = async (req, res, next) => {
+    const setting = await Setting.findOne({});
 
-//     res.locals.setting = setting;
+    res.locals.setting = setting;
 
-//     next();
-// }
+    next();
+}

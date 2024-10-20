@@ -10,7 +10,7 @@ const userMiddleware = require("../../middlewares/client/user.middleware");
 const categoryMiddleware = require("../../middlewares/client/category.middleware");
 const cartMiddleware = require("../../middlewares/client/cart.middleware");
 const wishlistMiddleware = require("../../middlewares/client/wishlist.middleware");
-// const settingMiddleware = require("../../middlewares/client/setting.middleware");
+const settingMiddleware = require("../../middlewares/client/setting.middleware");
 
 module.exports.index = (app) => {
     app.use(categoryMiddleware.category);

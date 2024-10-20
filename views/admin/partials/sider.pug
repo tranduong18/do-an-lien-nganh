@@ -32,6 +32,6 @@
         li
           a(href=`/${prefixAdmin}/accounts`) Tài khoản admin
 
-      //- if(role.permissions.includes("setting_edit"))
-      //-   li
-      //-     a(href=`/${prefixAdmin}/settings/general`) Cài đặt chung
+      if(role.permissions.includes("setting_edit"))
+        li
+          a(href=`/${prefixAdmin}/settings/general`) Cài đặt chung
