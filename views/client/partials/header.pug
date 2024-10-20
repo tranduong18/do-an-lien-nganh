@@ -3,12 +3,10 @@ include ../mixins/sub-menu.pug
 header
   // Topbar Start
   .container-fluid
-    //- .row.bg-secondary.py-1.px-xl-5
-
     .row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex
       .col-lg-4
         a.text-decoration-none(href='/')
-        //-   img(src=setting.logo, alt="Logo" style="width: 150px")
+          img(src=setting.logo, alt="Logo" style="width: 150px")
       .col-lg-4.col-6.text-left
         form(
           action="/search"
@@ -60,7 +58,6 @@ header
       .col-lg-9
         nav.navbar.navbar-expand-lg.bg-dark.navbar-dark.py-3.py-lg-0.px-0
           a.text-decoration-none.d-block.d-lg-none(href='/')
-            //- img(src=setting.logo, alt="Logo" style="width: 150px")
           button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')
             span.navbar-toggler-icon
           #navbarCollapse.collapse.navbar-collapse.justify-content-between

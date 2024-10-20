@@ -150,7 +150,7 @@ block main
             each item in similarProduct
               .product-item.bg-light
                 .product-img.position-relative.overflow-hidden
-                  img.img-fluid.w-100(src=item.thumbnail, alt=item.title)
+                  img.img-fluid.w-100(src=item.thumbnail[0], alt=item.title)
                   .product-action
                     a.btn.btn-outline-dark.btn-square(href='')
                       i.fa.fa-shopping-cart

@@ -1,10 +1,41 @@
 const Product = require("../../models/product.model");
-const Wishlist = require("../../models/product-wishlist.model");
+const Categories = require("../../models/product-category.model");
 const Blog = require("../../models/blog.model");
 const BlogCategory = require("../../models/blog-category.model");
 
 // [GET] /
 module.exports.index = async (req, res) => {
+    // Danh mục
+    const categories = await Categories.find({
+        status: "active",
+        deleted: false,
+        parent_id: ""
+    });
+    
+    for(const category of categories){
+        const subCategory = await Categories.find({
+            status: "active",
+            deleted: false,
+            parent_id: category.id
+        });
+
+        const subCategoryIds = subCategory.map(sub => sub.id);
+
+        const countProducts = await Product.countDocuments({
+                status: "active",
+                deleted: false,
+                product_category_id: {
+                    $in: [
+                        ...subCategoryIds,
+                        category.id
+                    ]
+                }
+        });
+
+        category.countProduct = countProducts;
+    }
+    // Hêt Danh mục
+    
     // Sản phẩm nổi bật
     const productsFeatured = await Product.find({
         featured: "1",
@@ -54,6 +85,7 @@ module.exports.index = async (req, res) => {
         pageTitle: "Trang chủ",
         productsFeatured: productsFeatured,
         productsNew: productsNew,
-        blogsNew: blogsNew
+        blogsNew: blogsNew,
+        categories: categories
     });
 }

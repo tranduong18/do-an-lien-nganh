@@ -163,24 +163,24 @@ module.exports.permissions = async (req, res) => {
 }
 
 // [PATCH] /admin/roles/permissions
-module.exports.permissionsPatch = async (req, res) => {
-    if(res.locals.role.permissions.includes("roles_permissions")){
-        const roles = req.body;
-        for(const role of roles){
-            await Role.updateOne({
-                _id: role.id,
-                deleted: false
-            }, {
-                permissions: role.permissions
-            });
-        }
+// module.exports.permissionsPatch = async (req, res) => {
+//     if(res.locals.role.permissions.includes("roles_permissions")){
+//         const roles = req.body;
+//         for(const role of roles){
+//             await Role.updateOne({
+//                 _id: role.id,
+//                 deleted: false
+//             }, {
+//                 permissions: role.permissions
+//             });
+//         }
 
-        res.json({
-            code: 200,
-            message: "Cập nhật thành công"
-        });  
-    }
-    else{
-        res.send(`403`);
-    }
-}
+//         res.json({
+//             code: 200,
+//             message: "Cập nhật thành công"
+//         });  
+//     }
+//     else{
+//         res.send(`403`);
+//     }
+// }
