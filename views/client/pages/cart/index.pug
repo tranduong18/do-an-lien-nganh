@@ -40,12 +40,11 @@ block main
                         .d-flex.align-items-center.mb-2
                           
                           select.form-control(name="size" style='margin-right: 7px; width: 67px' product-id=product.productId=product.productId data-size-name=size.name)
-                            option(value="m" selected = (size.name == 'm') ) M
-                            option(value="l" selected = (size.name == 'l')) L
-                            option(value="xl" selected = (size.name == 'xl')) XL
-                            option(value="s" selected = (size.name == 's')) S
-                            option(value="xs" selected = (size.name == 'xs')) XS
-                       
+                            option(value="S" selected = (size.name == 'S')) S
+                            option(value="M" selected = (size.name == 'M') ) M
+                            option(value="L" selected = (size.name == 'L')) L
+                            option(value="XL" selected = (size.name == 'XL')) XL
+                            
                           input.form-control(type='number' value=size.quantity min="1" max=product.stock name="quantity" product-id=product.productId=product.productId data-size-name=size.name)
                   td.align-middle #{product.totalPrice.toLocaleString()} ₫
                   td.align-middle

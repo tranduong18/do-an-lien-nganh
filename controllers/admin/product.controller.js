@@ -245,8 +245,6 @@ module.exports.edit = async (req, res) => {
       deleted: false
     });
 
-    console.log(product);
-
     if(product) {
       const categories = await ProductCategory.find({
         deleted: false
@@ -313,7 +311,6 @@ module.exports.detail = async (req, res) => {
 
     product.image = product.thumbnail[0];
 
-    console.log(product);
     if(product) {
       res.render("admin/pages/products/detail", {
         pageTitle: "Chi tiết sản phẩm",

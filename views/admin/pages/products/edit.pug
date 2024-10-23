@@ -61,6 +61,52 @@ block main
           rows="5"
           textarea-mce
         ) #{product.description}
+
+      // Size
+      div(class="form-group")
+        label Kích cỡ:
+        div(class="form-check form-check-inline" style="margin-left: 10px")
+          input(
+            type="checkbox"
+            class="form-check-input"
+            id="sizeS"
+            name="size[]"
+            value="S"
+            checked=(product.size.includes("S"))
+          )
+          label(for="sizeS" class="form-check-label") S
+        div(class="form-check form-check-inline")
+          input(
+            type="checkbox"
+            class="form-check-input"
+            id="sizeM"
+            name="size[]"
+            value="M"
+            checked=(product.size.includes("M"))
+          )
+          label(for="sizeM" class="form-check-label") M
+        div(class="form-check form-check-inline")
+          input(
+            type="checkbox"
+            class="form-check-input"
+            id="sizeL"
+            name="size[]"
+            value="L"
+            checked=(product.size.includes("L"))
+          )
+          label(for="sizeL" class="form-check-label") L
+        div(class="form-check form-check-inline")
+          input(
+            type="checkbox"
+            class="form-check-input"
+            id="sizeXL"
+            name="size[]"
+            value="XL"
+            checked=(product.size.includes("XL"))
+          )
+          label(for="sizeXL" class="form-check-label") XL
+      // End Size
+
       div(class="form-group")
         label(for="price") Giá
         input(

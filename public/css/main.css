@@ -9752,3 +9752,7 @@
   label[filter-price].active{
     color: red !important
   }
+
+  label[filter-size].active{
+    color: red !important
+  }

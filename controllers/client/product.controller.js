@@ -1,6 +1,5 @@
 const Product = require("../../models/product.model");
 const ProductCategory = require("../../models/product-category.model");
-
 const paginationHelper = require("../../helpers/pagination.helper");
 
 // [GET] /products/
@@ -19,6 +18,13 @@ module.exports.index = async (req, res) => {
 
         allProducts = allProducts.filter(product => {
             return product.priceNew >= priceStart && product.priceNew <= priceEnd;
+        });
+    }
+
+    if(req.query.size){
+        const sizeFilter = req.query.size;
+        allProducts = allProducts.filter(product => {
+            return product.size.includes(sizeFilter);
         });
     }
 

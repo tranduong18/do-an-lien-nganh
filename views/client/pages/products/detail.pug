@@ -42,23 +42,12 @@ block main
             | clita ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea
             | Nonumy
           .d-flex.mb-3
-            strong.text-dark.mr-3 Sizes:
+            strong.text-dark.mr-3 Kích cỡ:
             form
-              .custom-control.custom-radio.custom-control-inline
-                input#size-1.custom-control-input(type='radio' name='size-radio' value="xs" required)
-                label.custom-control-label(for='size-1') XS
-              .custom-control.custom-radio.custom-control-inline
-                input#size-2.custom-control-input(type='radio' name='size-radio' value="s" required)
-                label.custom-control-label(for='size-2') S
-              .custom-control.custom-radio.custom-control-inline
-                input#size-3.custom-control-input(type='radio' name='size-radio' value="m" required)
-                label.custom-control-label(for='size-3') M
-              .custom-control.custom-radio.custom-control-inline
-                input#size-4.custom-control-input(type='radio' name='size-radio' value="l" required)
-                label.custom-control-label(for='size-4') L
-              .custom-control.custom-radio.custom-control-inline
-                input#size-5.custom-control-input(type='radio' name='size-radio' value="xl" required)
-                label.custom-control-label(for='size-5') XL
+              for size, index in product.size
+                .custom-control.custom-radio.custom-control-inline
+                  input.custom-control-input(type='radio' name='size-radio' id=`size-${index}` value=size required)
+                  label.custom-control-label(for=`size-${index}`) #{size}
 
           .d-flex.align-items-center.mb-4.pt-2
               form.d-flex(

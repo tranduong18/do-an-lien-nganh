@@ -216,6 +216,33 @@ if (listFilterByPrice.length > 0) {
 }
 // Hết Lọc sản phẩm theo giá
 
+// Lọc sản phẩm theo size
+const listFilterBySize = document.querySelectorAll("[filter-size]");
+if (listFilterBySize.length > 0) {
+    let url = new URL(window.location.href);
+    listFilterBySize.forEach(Size => {
+        Size.addEventListener("click", () => {
+            const size = Size.getAttribute("filter-size");
+            if(size) {
+                listFilterBySize.forEach(item => item.classList.remove("active"));
+                Size.classList.add("active");
+                url.searchParams.set("size", size);
+                window.location.href = url.href;
+            }
+        });
+    });
+
+    const currentSize = url.searchParams.get("size");
+
+    listFilterBySize.forEach(Size => {
+        const size = Size.getAttribute("filter-size");
+        if (currentSize === size) {
+            Size.classList.add("active");
+        }
+    });
+}
+// Hết Lọc sản phẩm theo size
+
 // Xử lý size của sản phẩm
 const sizeRadios = document.querySelectorAll('input[name="size-radio"]');
 if(sizeRadios.length > 0){
