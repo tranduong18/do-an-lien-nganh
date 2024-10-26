@@ -1,9 +1,12 @@
 const ProductWishlist = require("../../models/product-wishlist.model");
 const Product = require("../../models/product.model");
 
+const paginationHelper = require("../../helpers/pagination.helper");
+
 // [GET] /wishlist
 module.exports.index = async (req, res) => {
     const userId = res.locals.user.id;
+
     const wishlist = await ProductWishlist.findOne({
         userId: userId
     });

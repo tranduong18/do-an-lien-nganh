@@ -44,34 +44,31 @@ block main
         
         // Size Start
         h5.section-title.position-relative.text-uppercase.mb-3
-          span.bg-secondary.pr-3 Filter by size
+          span.bg-secondary.pr-3 Lọc theo size
         .bg-light.p-4.mb-30
           form
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#size-all.custom-control-input(type='checkbox' checked='')
-              label.custom-control-label(for='size-all') All Size
-              span.badge.border.font-weight-normal 1000
+              if(!slug)
+                a(href="/products")
+                  label(for='size-all' style="color: red; cursor: pointer") Tất cả
+              else
+                a(href=`/products/${slug}`)
+                  label(for='size-all' style="color: red; cursor: pointer") Tất cả
+            
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#size-1.custom-control-input(type='checkbox')
-              label.custom-control-label(for='size-1') XS
-              span.badge.border.font-weight-normal 150
+              label(for='size-1' filter-size = "S" style="color: #6C757D; cursor: pointer" ) S
+              
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#size-2.custom-control-input(type='checkbox')
-              label.custom-control-label(for='size-2') S
-              span.badge.border.font-weight-normal 295
+              label(for='size-2' filter-size = "M" style="color: #6C757D; cursor: pointer" ) M
+              
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#size-3.custom-control-input(type='checkbox')
-              label.custom-control-label(for='size-3') M
-              span.badge.border.font-weight-normal 246
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input#size-4.custom-control-input(type='checkbox')
-              label.custom-control-label(for='size-4') L
-              span.badge.border.font-weight-normal 145
+              label(for='size-3' filter-size = "L" style="color: #6C757D; cursor: pointer" ) L
+              
             .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between
-              input#size-5.custom-control-input(type='checkbox')
-              label.custom-control-label(for='size-5') XL
-              span.badge.border.font-weight-normal 168
+              label(for='size-4' filter-size = "XL" style="color: #6C757D; cursor: pointer" ) XL
+
         // Size End
+
       // Shop Sidebar End
       // Shop Product Start
       .col-lg-9.col-md-8

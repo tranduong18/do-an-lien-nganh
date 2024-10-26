@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/pagination.pug
 
 block main
   .container-fluid
@@ -39,16 +40,5 @@ block main
                       small.fa.fa-star.text-primary.mr-1
                       small (99)
 
-            .col-12
-              nav
-                ul.pagination.justify-content-center
-                  li.page-item.disabled
-                    a.page-link(href='#') Previous
-                  li.page-item.active
-                    a.page-link(href='#') 1
-                  li.page-item
-                    a.page-link(href='#') 2
-                  li.page-item
-                    a.page-link(href='#') 3
-                  li.page-item
-                    a.page-link(href='#') Next
+            //- .col-12
+            //-   +pagination(pagination)

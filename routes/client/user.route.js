@@ -56,4 +56,9 @@ router.get("/password/reset", userMiddleware.requireAuth, controller.resetPasswo
 router.patch("/password/reset", userMiddleware.requireAuth, controller.resetPasswordPatch);
 // End Password
 
+// Dashboard
+router.get("/dashboard", controller.dashboard);
+
+// End Dashboard
+
 module.exports = router;

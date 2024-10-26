@@ -20,13 +20,53 @@ module.exports.index = async (req, res) => {
             return product.priceNew >= priceStart && product.priceNew <= priceEnd;
         });
     }
+    // Hết Lọc theo giá
 
+    // Lọc theo size
     if(req.query.size){
         const sizeFilter = req.query.size;
         allProducts = allProducts.filter(product => {
             return product.size.includes(sizeFilter);
         });
     }
+    // Hết Lọc theo size
+
+    // Danh mục
+    const categories = await ProductCategory.find({
+        status: "active",
+        deleted: false,
+        parent_id: ""
+    }).select("slug title");
+
+    let filterCategory = "";
+
+    if(req.query.category){
+        const categoryFilter = req.query.category;
+
+        const category = await ProductCategory.findOne({
+            status: "active",
+            deleted: false,
+            slug: categoryFilter
+        });
+
+        filterCategory = category.title;
+
+        const subCategory = await ProductCategory.find({
+            status: "active",
+            deleted: false,
+            parent_id: category.id
+        });
+
+        const subCategoryIds = subCategory.map(sub => sub.id);
+
+        allProducts = allProducts.filter(product => {
+            return [
+                ...subCategoryIds,
+                category.id
+            ].includes(product.product_category_id);
+        });
+    }
+    // Hêt Danh mục
 
     // Phân trang
     const pagination = await paginationHelper.productClient(req, allProducts);
@@ -36,7 +76,9 @@ module.exports.index = async (req, res) => {
     res.render("client/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
         products: paginatedProducts,
-        pagination: pagination
+        pagination: pagination,
+        categories: categories,
+        filterCategory: filterCategory
     });
 };
 
@@ -105,6 +147,16 @@ module.exports.category = async(req, res) => {
             return product.priceNew >= priceStart && product.priceNew <= priceEnd;
         });
     }
+    // Hết Lọc sản phẩm theo giá
+
+    // Lọc theo size
+    if(req.query.size){
+        const sizeFilter = req.query.size;
+        products = products.filter(product => {
+            return product.size.includes(sizeFilter);
+        });
+    }
+    // Hết Lọc theo size
 
     const pagination = await paginationHelper.productClient(req, products);
 
@@ -112,7 +164,7 @@ module.exports.category = async(req, res) => {
 
     res.render("client/pages/products/index", {
         pageTitle: category.title,
-        products: products,
+        products: paginatedProducts,
         pagination: pagination,
         slug: slugCategory,
         title: category.title,

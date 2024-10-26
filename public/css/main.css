@@ -9756,3 +9756,25 @@
   label[filter-size].active{
     color: red !important
   }
+
+  label[filter-categories].active{
+    color: red !important
+  }
+
+  .nav-dashboard .nav-link {
+    overflow: hidden;
+    position: relative;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 1.4rem 0;
+    color: #333;
+    border-bottom: .1rem solid #ebebeb;
+}
+
+.box-btn{
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow:0 0 1px rgba(0,0,0,.125) ,0 1px 3px rgba(0,0,0,.2) ;
+}

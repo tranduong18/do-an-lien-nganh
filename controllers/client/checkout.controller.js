@@ -97,6 +97,7 @@ module.exports.orderPost = async (req, res) => {
     }
     
     orderData.totalPrice = totalPrice;
+    orderData.userId = res.locals.user.id;
 
     const order = new Order(orderData);
     await order.save();

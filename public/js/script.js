@@ -243,6 +243,33 @@ if (listFilterBySize.length > 0) {
 }
 // Hết Lọc sản phẩm theo size
 
+// Lọc sản phẩm theo danh mục
+const listFilterByCategory = document.querySelectorAll("[filter-categories]");
+if (listFilterByCategory.length > 0) {
+    let url = new URL(window.location.href);
+    listFilterByCategory.forEach(Category => {
+        Category.addEventListener("click", () => {
+            const category = Category.getAttribute("filter-categories");
+            if(category) {
+                listFilterByCategory.forEach(item => item.classList.remove("active"));
+                Category.classList.add("active");
+                url.searchParams.set("category", category);
+                window.location.href = url.href;
+            }
+        });
+    });
+
+    const currentCategory = url.searchParams.get("category");
+
+    listFilterByCategory.forEach(Category => {
+        const category = Category.getAttribute("filter-categories");
+        if (currentCategory === category) {
+            Category.classList.add("active");
+        }
+    });
+}
+// Hết Lọc sản phẩm theo danh mục
+
 // Xử lý size của sản phẩm
 const sizeRadios = document.querySelectorAll('input[name="size-radio"]');
 if(sizeRadios.length > 0){

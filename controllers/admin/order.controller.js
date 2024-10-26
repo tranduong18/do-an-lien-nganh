@@ -39,6 +39,15 @@ module.exports.changeStatus = async(req, res) => {
             status: newStatus
         })
 
+        if(newStatus == "Giao thành công"){
+            console.log("Ok");
+            await Order.updateOne({
+                _id: id
+            }, {
+                is_payment: true
+            })
+        }
+
         req.flash("success", "Cập nhật trạng thái thành công!");
 
         res.json({
