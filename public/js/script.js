@@ -294,3 +294,37 @@ if(productImages){
     });
 }
 // End detail-product-images
+
+// Review
+document.addEventListener('DOMContentLoaded', function() {
+    const reviewButtons = document.querySelectorAll('[data-toggle="modal"]');
+
+    if (reviewButtons.length > 0) {
+        reviewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const orderId = this.getAttribute('data-order-id');
+                const rating = this.getAttribute('data-rating');
+                const review = this.getAttribute('data-review');
+
+                const productIdInput = document.getElementById('getProductId');
+                const orderIdInput = document.getElementById('getOrderId');
+                const ratingSelect = document.querySelector('select[name="rating"]');
+                const reviewTextarea = document.querySelector('textarea[name="review"]');
+
+                if(productIdInput && orderIdInput) {
+                    productIdInput.value = productId;
+                    orderIdInput.value = orderId;
+                }
+
+                if(ratingSelect && rating) {
+                    ratingSelect.value = rating; 
+                }
+                if(reviewTextarea && review) {
+                    reviewTextarea.value = review; 
+                }
+            });
+        });
+    }
+});
+// End Review

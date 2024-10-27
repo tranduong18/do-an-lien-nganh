@@ -4,6 +4,7 @@ const Blog = require("../models/blog.model.js");
 const BlogCategory = require("../models/blog-category.model.js");
 const Order = require("../models/order.model.js");
 const User = require("../models/user.model.js");
+const ProductWishlist = require("../models/product-wishlist.model.js");
 
 module.exports.product = async (req, find) => {
     const pagination = {
@@ -27,7 +28,7 @@ module.exports.product = async (req, find) => {
 module.exports.productClient = async (req, products) => {
     const pagination = {
         currentPage: 1,
-        limitItems: 6
+        limitItems: 9
     };
 
     if(req.query.page){
@@ -57,6 +58,25 @@ module.exports.productCategory = async (req, find) => {
 
     const countProductCategory = await ProductCategory.countDocuments(find);
     const totalPage = Math.ceil(countProductCategory / pagination.limitItems);
+    pagination.totalPage = totalPage;
+
+    return pagination;
+}
+
+module.exports.productWishlist = async (req, products) => {
+    const pagination = {
+        currentPage: 1,
+        limitItems: 10
+    };
+
+    if(req.query.page){
+        pagination.currentPage = parseInt(req.query.page);
+    }
+
+    pagination.skip = (pagination.currentPage - 1) * pagination.limitItems;
+
+    const totalItems = products.length;
+    const totalPage = Math.ceil(totalItems / pagination.limitItems);
     pagination.totalPage = totalPage;
 
     return pagination;

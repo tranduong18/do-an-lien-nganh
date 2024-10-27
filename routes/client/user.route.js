@@ -59,6 +59,11 @@ router.patch("/password/reset", userMiddleware.requireAuth, controller.resetPass
 // Dashboard
 router.get("/dashboard", controller.dashboard);
 
+router.get("/orders", controller.orders);
+
+router.get("/orders/detail/:id", controller.ordersDetail);
+
+router.post("/orders/make-review", controller.makeReview);
 // End Dashboard
 
 module.exports = router;

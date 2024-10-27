@@ -16,6 +16,7 @@ block main
     .row.px-xl-5
       // Shop Sidebar Start
       .col-lg-3.col-md-4
+
         // Lọc giá tiền
         h5.section-title.position-relative.text-uppercase.mb-3
           span.bg-secondary.pr-3 Lọc theo giá
@@ -94,17 +95,16 @@ block main
                   a.h6.text-decoration-none.text-truncate(href=`/products/detail/${item.slug}`) #{item.title}
                   .d-flex.align-items-center.justify-content-center.mt-2
                     h5(style="color: red") #{item.priceNew.toLocaleString().toLocaleString()} ₫
-                    h6.text-muted.ml-2
-                      del(style="color: green") #{item.price.toLocaleString()} ₫
+                    if(item.discountPercentage != 0)
+                      h6.text-muted.ml-2
+                        del(style="color: green") #{item.price.toLocaleString()} ₫
                   .d-flex.align-items-center.justify-content-center.mb-1
-                    small.fa.fa-star.text-primary.mr-1
-                    small.fa.fa-star.text-primary.mr-1
-                    small.fa.fa-star.text-primary.mr-1
-                    small.fa.fa-star.text-primary.mr-1
-                    small.fa.fa-star.text-primary.mr-1
-                    small (99)
+                    each star in [1, 2, 3, 4, 5] 
+                      if (star <= item.ratingAvg)
+                        small.fas.fa-star.text-primary.mr-1
+                      else
+                        small.far.fa-star.text-primary.mr-1
+                    small (#{item.reviewsCount})
 
           .col-12
             +pagination(pagination)
-      // Shop Product End
-  // Shop End

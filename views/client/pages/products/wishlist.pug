@@ -11,12 +11,12 @@ block main
           a.breadcrumb-item.text-dark(href='/products') Sản phẩm
           span.breadcrumb-item.active #{pageTitle}
           
-  if(wishlist.products.length > 0)
+  if(products.length > 0)
     .container-fluid
       .row.px-xl-5
         .col-lg-9.col-md-8
           .row.pb-3
-            each item in wishlist.products
+            each item in products
               .col-lg-4.col-md-6.col-sm-6.pb-1
                 .product-item.bg-light.mb-4
                   .product-img.position-relative.overflow-hidden
@@ -30,15 +30,16 @@ block main
                     a.h6.text-decoration-none.text-truncate(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
                     .d-flex.align-items-center.justify-content-center.mt-2
                       h5(style="color: red") #{item.productInfo.priceNew.toLocaleString()} ₫
-                      h6.text-muted.ml-2
-                        del(style="color: green") #{item.productInfo.price.toLocaleString()} ₫
+                      if(item.productInfo.discountPercentage != 0)
+                        h6.text-muted.ml-2
+                          del(style="color: green") #{item.productInfo.price.toLocaleString()} ₫
                     .d-flex.align-items-center.justify-content-center.mb-1
-                      small.fa.fa-star.text-primary.mr-1
-                      small.fa.fa-star.text-primary.mr-1
-                      small.fa.fa-star.text-primary.mr-1
-                      small.fa.fa-star.text-primary.mr-1
-                      small.fa.fa-star.text-primary.mr-1
-                      small (99)
+                      each star in [1, 2, 3, 4, 5] 
+                        if (star <= item.ratingAvg)
+                          small.fas.fa-star.text-primary.mr-1
+                        else
+                          small.far.fa-star.text-primary.mr-1
+                      small (#{item.reviewsCount})
 
-            //- .col-12
-            //-   +pagination(pagination)
+            .col-12
+              +pagination(pagination)

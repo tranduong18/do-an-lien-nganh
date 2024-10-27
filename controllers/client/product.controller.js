@@ -1,6 +1,12 @@
 const Product = require("../../models/product.model");
 const ProductCategory = require("../../models/product-category.model");
+const Review = require("../../models/product-review.model");
+const User = require("../../models/user.model");
+
 const paginationHelper = require("../../helpers/pagination.helper");
+const ratingAverage = require("../../helpers/ratingAverage.helper");
+const moment = require("moment");
+
 
 // [GET] /products/
 module.exports.index = async (req, res) => {
@@ -72,6 +78,16 @@ module.exports.index = async (req, res) => {
     const pagination = await paginationHelper.productClient(req, allProducts);
 
     const paginatedProducts = allProducts.slice(pagination.skip, pagination.skip + pagination.limitItems);
+
+    for(const item of paginatedProducts){
+        const reviewsItem = await Review.find({
+            productId: item.id
+        });
+
+        item.reviewsCount = reviewsItem.length;
+
+        item.ratingAvg = await ratingAverage.ratingAvg(reviewsItem);
+    }
 
     res.render("client/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
@@ -162,6 +178,17 @@ module.exports.category = async(req, res) => {
 
     const paginatedProducts = products.slice(pagination.skip, pagination.skip + pagination.limitItems);
 
+    for(const item of paginatedProducts){
+        const reviewsItem = await Review.find({
+            productId: item.id
+        });
+
+        item.reviewsCount = reviewsItem.length;
+
+        item.ratingAvg = await ratingAverage.ratingAvg(reviewsItem);
+    }
+
+
     res.render("client/pages/products/index", {
         pageTitle: category.title,
         products: paginatedProducts,
@@ -185,6 +212,26 @@ module.exports.detail = async (req, res) => {
 
     product.priceNew = ((1 - product.discountPercentage/100) * product.price).toFixed(0);
 
+    // review
+    const reviews = await Review.find({
+        productId: product.id
+    });
+
+    for(const review of reviews){
+        const user = await User.findOne({
+            _id: review.userId
+        });
+
+        review.image = user.avatar;
+        review.fullName = user.fullName;
+
+        review.createdAtFormat = moment(review.createdAt).format("DD/MM/YYYY");
+    }
+
+    reviews.ratingAvg = await ratingAverage.ratingAvg(reviews);
+    // End review
+
+    // Sản phẩm tương tự
     const similarProduct = await Product.find({
         _id: {$ne: product.id},
         product_category_id: product.product_category_id,
@@ -192,11 +239,23 @@ module.exports.detail = async (req, res) => {
         deleted: false
     });
 
+    for(const item of similarProduct){
+        const reviewsItem = await Review.find({
+            productId: item.id
+        });
+
+        item.reviewsCount = reviewsItem.length;
+
+        item.ratingAvg = await ratingAverage.ratingAvg(reviewsItem);
+    }
+    // Sản phẩm tương tự
+
     if(product){
         res.render("client/pages/products/detail", {
             pageTitle: "Chi tiết sản phẩm",
             product: product,
-            similarProduct: similarProduct
+            similarProduct: similarProduct,
+            reviews: reviews
         });
     }
     else{

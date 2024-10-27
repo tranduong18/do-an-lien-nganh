@@ -2,6 +2,9 @@ const Product = require("../../models/product.model");
 const Categories = require("../../models/product-category.model");
 const Blog = require("../../models/blog.model");
 const BlogCategory = require("../../models/blog-category.model");
+const Review = require("../../models/product-review.model");
+
+const ratingAverage = require("../../helpers/ratingAverage.helper");
 
 // [GET] /
 module.exports.index = async (req, res) => {
@@ -42,11 +45,18 @@ module.exports.index = async (req, res) => {
         status: "active",
         deleted: false
     })
-    .sort({ position : "desc" }).limit(6)
+    .sort({ position : "desc" }).limit(10)
     .select("-description");
 
     for(const item of productsFeatured){
         item.priceNew = ((1 - item.discountPercentage/100) * item.price).toFixed(0);
+        const reviewsItem = await Review.find({
+            productId: item.id
+        });
+
+        item.reviewsCount = reviewsItem.length;
+
+        item.ratingAvg = await ratingAverage.ratingAvg(reviewsItem);
     }
     // Hết Sản phẩm nổi bật
 
@@ -55,11 +65,18 @@ module.exports.index = async (req, res) => {
         status: "active",
         deleted: false
     })
-    .sort({ position : "desc" }).limit(6)
+    .sort({ position : "desc" }).limit(10)
     .select("-description");
 
     for(const item of productsNew){
         item.priceNew = ((1 - item.discountPercentage/100) * item.price).toFixed(0);
+        const reviewsItem = await Review.find({
+            productId: item.id
+        });
+
+        item.reviewsCount = reviewsItem.length;
+
+        item.ratingAvg = await ratingAverage.ratingAvg(reviewsItem);
     }
     // Hết Sản phẩm mới
 

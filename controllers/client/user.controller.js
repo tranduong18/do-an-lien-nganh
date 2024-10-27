@@ -1,10 +1,14 @@
 const md5 = require("md5");
+const moment = require("moment");
 const User = require("../../models/user.model");
 const ForgotPassword = require("../../models/forgot-password.model");
 const Order = require("../../models/order.model");
+const Product = require("../../models/product.model");
+const Review = require("../../models/product-review.model");
 
 const generateHelper = require("../../helpers/generate.helper");
 const sendEmailHelper = require("../../helpers/sendEmail.helper");
+
 
 // [GET] /user/register
 module.exports.register = async (req, res) => {
@@ -25,7 +29,6 @@ module.exports.registerPost = async (req, res) => {
         res.redirect("back");
         return;
     }
-
 
     const userData = {
         fullName: req.body.fullName,
@@ -320,4 +323,103 @@ module.exports.dashboard = async (req, res) => {
         pageTitle: "Tổng Quan",
         myOrders: userOrder
     });
+}
+
+module.exports.orders = async (req, res) => {
+    const user = res.locals.user;
+
+    const orders = await Order.find({
+        userId: user.id
+    });
+
+    for(const order of orders){
+        order.createdAtFormat = moment(order.createdAt).format("DD/MM/YYYY");
+    }
+
+    res.render("client/pages/user/orders-dashboard", {
+        pageTitle: "Đơn hàng",
+        orders: orders
+    })
+}
+
+module.exports.ordersDetail = async (req, res) => {
+    const id = req.params.id;
+    
+    const order = await Order.findOne({
+        _id: id,
+        deleted: false
+    });
+
+    order.createdAtFormat = moment(order.createdAt).format("DD/MM/YYYY");
+
+    const products = order.products;
+    
+    for(const item of products){
+        const productInfo = await Product.findOne({
+            _id: item.productId,
+            deleted: false,
+            status: "active"
+        });
+
+        item.image = productInfo.thumbnail[0];
+        item.slug = productInfo.slug;
+        item.title = productInfo.title;
+        item.totalPrice = parseInt(item.price * item.quantity);
+
+
+        const reviewInfo = await Review.findOne({
+            userId: res.locals.user.id,
+            orderId: order.id,
+            productId: item.productId
+        });
+
+        if(reviewInfo){
+            item.rating = reviewInfo.rating,
+            item.review = reviewInfo.review;
+        }
+    }
+    
+    res.render("client/pages/user/orders-detail", {
+        pageTitle: "Chi tiết đơn hàng",
+        order: order,
+        products: products
+    })
+}
+
+module.exports.makeReview = async (req, res) => {
+    const productId = req.body.productId;
+    const orderId = req.body.orderId;
+
+    const existReview = await Review.findOne({
+        userId: res.locals.user.id,
+        orderId: orderId,
+        productId: productId
+    });
+
+    if(existReview){
+        await Review.updateOne({
+            userId: res.locals.user.id,
+            orderId: orderId,
+            productId: productId
+        }, {
+            rating: parseInt(req.body.rating),
+            review: req.body.review
+        });
+    }
+    else{
+        const reviewInfo = {
+            userId: res.locals.user.id,
+            productId: productId,
+            orderId: orderId,
+            rating: parseInt(req.body.rating),
+            review: req.body.review
+        };
+    
+        const review = new Review(reviewInfo);
+        await review.save();
+    }
+    
+    req.flash("success", "Cảm ơn bạn đã đánh giá!!");
+
+    res.redirect("back");
 }
