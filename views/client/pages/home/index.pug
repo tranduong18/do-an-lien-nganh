@@ -12,43 +12,25 @@ block main
             li(data-target='#header-carousel' data-slide-to='1')
             li(data-target='#header-carousel' data-slide-to='2')
           .carousel-inner
-            .carousel-item.position-relative.active(style='height: 430px;')
-              img.position-absolute.w-100.h-100(src='images/carousel-1.jpg' style='object-fit: cover;')
-              .carousel-caption.d-flex.flex-column.align-items-center.justify-content-center
-                .p-3(style='max-width: 700px;')
-                  h1.display-4.text-white.mb-3.animate__animated.animate__fadeInDown Men Fashion
-                  p.mx-md-5.px-5.animate__animated.animate__bounceIn
-                    | Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam
-                  a.btn.btn-outline-light.py-2.px-4.mt-3.animate__animated.animate__fadeInUp(href='#') Shop Now
-            .carousel-item.position-relative(style='height: 430px;')
-              img.position-absolute.w-100.h-100(src='images/carousel-2.jpg' style='object-fit: cover;')
-              .carousel-caption.d-flex.flex-column.align-items-center.justify-content-center
-                .p-3(style='max-width: 700px;')
-                  h1.display-4.text-white.mb-3.animate__animated.animate__fadeInDown Women Fashion
-                  p.mx-md-5.px-5.animate__animated.animate__bounceIn
-                    | Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam
-                  a.btn.btn-outline-light.py-2.px-4.mt-3.animate__animated.animate__fadeInUp(href='#') Shop Now
-            .carousel-item.position-relative(style='height: 430px;')
-              img.position-absolute.w-100.h-100(src='images/carousel-3.jpg' style='object-fit: cover;')
-              .carousel-caption.d-flex.flex-column.align-items-center.justify-content-center
-                .p-3(style='max-width: 700px;')
-                  h1.display-4.text-white.mb-3.animate__animated.animate__fadeInDown Kids Fashion
-                  p.mx-md-5.px-5.animate__animated.animate__bounceIn
-                    | Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam
-                  a.btn.btn-outline-light.py-2.px-4.mt-3.animate__animated.animate__fadeInUp(href='#') Shop Now
+             each item, index in carosels
+              .carousel-item.position-relative(style='height: 430px;' class=(index === 0 ? 'active' : ''))
+                img.position-absolute.w-100.h-100(src=item.image style='object-fit: cover;')
+                .carousel-caption.d-flex.flex-column.align-items-center.justify-content-center
+                  .p-3(style='max-width: 700px;')
+                    h1.display-4.text-white.mb-3.animate__animated.animate__fadeInDown #{item.title}
+                    p.mx-md-5.px-5.animate__animated.animate__bounceIn
+                      | !{item.description}
+                    a.btn.btn-outline-light.py-2.px-4.mt-3.animate__animated.animate__fadeInUp(href='#') Shop Now
+            
       .col-lg-4
-        .product-offer.mb-30(style='height: 200px;')
-          img.img-fluid(src='images/offer-1.jpg' alt='')
-          .offer-text
-            h6.text-white.text-uppercase Save 20%
-            h3.text-white.mb-3 Special Offer
-            a.btn.btn-primary(href='') Shop Now
-        .product-offer.mb-30(style='height: 200px;')
-          img.img-fluid(src='images/offer-2.jpg' alt='')
-          .offer-text
-            h6.text-white.text-uppercase Save 20%
-            h3.text-white.mb-3 Special Offer
-            a.btn.btn-primary(href='') Shop Now
+        each item in productOffers
+          .product-offer.mb-30(style='height: 200px;')
+            img.img-fluid(src=item.image alt=item.title)
+            .offer-text
+              h6.text-white.text-uppercase(style='margin-bottom: -5px') #{item.title}
+              h3.text-white.mb-3 !{item.description}
+              a.btn.btn-primary(href='') Shop Now
+
   // Carousel End
   //- Khẩu hiệu 
   .container-fluid.pt-5
@@ -128,20 +110,14 @@ block main
   // Offer Start
   .container-fluid.pt-5.pb-3
     .row.px-xl-5
-      .col-md-6
-        .product-offer.mb-30(style='height: 300px;')
-          img.img-fluid(src='images/offer-1.jpg' alt='')
-          .offer-text
-            h6.text-white.text-uppercase Save 20%
-            h3.text-white.mb-3 Special Offer
-            a.btn.btn-primary(href='') Shop Now
-      .col-md-6
-        .product-offer.mb-30(style='height: 300px;')
-          img.img-fluid(src='images/offer-2.jpg' alt='')
-          .offer-text
-            h6.text-white.text-uppercase Save 20%
-            h3.text-white.mb-3 Special Offer
-            a.btn.btn-primary(href='') Shop Now
+      each item in productOffers
+        .col-md-6
+          .product-offer.mb-30(style='height: 300px;')
+            img.img-fluid(src=item.image alt=item.title)
+            .offer-text
+              h5.text-white.text-uppercase(style='margin-bottom: -5px') #{item.title}
+              h3.text-white.mb-3 !{item.description}
+              a.btn.btn-primary(href='') Shop Now
   // Offer End
 
   //- Sản phẩm gần đây

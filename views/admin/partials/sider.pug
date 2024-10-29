@@ -12,6 +12,14 @@
         li
           a(href=`/${prefixAdmin}/products-category`) Danh mục sản phẩm
 
+      if(role.permissions.includes("blogs_view"))
+        li
+          a(href=`/${prefixAdmin}/blogs`) Bài viết
+          
+      if(role.permissions.includes("blogs-category_view"))
+        li
+          a(href=`/${prefixAdmin}/blogs-category`) Danh mục bài viết
+
       if(role.permissions.includes("users_view"))
         li
           a(href=`/${prefixAdmin}/users`) Người dùng
@@ -31,6 +39,9 @@
       if(role.permissions.includes("accounts_view"))
         li
           a(href=`/${prefixAdmin}/accounts`) Tài khoản admin
+
+      li
+        a(href=`/${prefixAdmin}/adverts`) Quảng cáo
 
       if(role.permissions.includes("setting_edit"))
         li

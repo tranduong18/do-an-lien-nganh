@@ -3,6 +3,7 @@ const Categories = require("../../models/product-category.model");
 const Blog = require("../../models/blog.model");
 const BlogCategory = require("../../models/blog-category.model");
 const Review = require("../../models/product-review.model");
+const Advert = require("../../models/advert.model");
 
 const ratingAverage = require("../../helpers/ratingAverage.helper");
 
@@ -65,7 +66,7 @@ module.exports.index = async (req, res) => {
         status: "active",
         deleted: false
     })
-    .sort({ position : "desc" }).limit(10)
+    .sort({ position : "desc" }).limit(8)
     .select("-description");
 
     for(const item of productsNew){
@@ -96,13 +97,25 @@ module.exports.index = async (req, res) => {
             item.categoryName = category.title
         }
     }
-    // Hết Blog mới 
+    // Hết Blog mới
+
+    // Quảng cáo
+    const adverts = await Advert.find({
+        status: "active",
+        deleted: false
+    });
+
+    const carosels = adverts.slice(0, 3);
+    const productOffers = adverts.slice(3, 5);
+    // Hết Quảng cáo
 
     res.render("client/pages/home/index", {
         pageTitle: "Trang chủ",
         productsFeatured: productsFeatured,
         productsNew: productsNew,
         blogsNew: blogsNew,
-        categories: categories
+        categories: categories,
+        carosels: carosels,
+        productOffers: productOffers
     });
 }
