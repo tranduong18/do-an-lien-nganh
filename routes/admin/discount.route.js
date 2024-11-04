@@ -1,11 +1,7 @@
 // const express = require("express");
-// const multer  = require('multer');
 // const router = express.Router();
 
-// const controller = require("../../controllers/admin/advert.controller");
-// const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
-
-// const upload = multer();
+// const controller = require("../../controllers/admin/discount.controller");
 
 // router.get("/", controller.index);
 
@@ -13,8 +9,6 @@
 
 // router.post(
 //     "/create",
-//     upload.single('image'),
-//     uploadCloud.uploadSingle,
 //     controller.createPost
 // );
 
@@ -22,12 +16,10 @@
 
 // router.patch(
 //     "/edit/:id",
-//     upload.single('image'),
-//     uploadCloud.uploadSingle,
 //     controller.editPatch
 // );
 
-// router.get("/detail/:id", controller.detail);
+// router.patch("/delete/:id", controller.deletePatch);
 
 // router.patch("/change-status/:statusChange/:id", controller.changeStatus);
 

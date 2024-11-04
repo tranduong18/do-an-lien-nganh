@@ -81,6 +81,16 @@ block main
                   value=user.address
                   required
                 )
+
+              div(class="form-group")
+                input(
+                  type="text"
+                  class="form-control"
+                  id="totalPrice"
+                  name="totalPrice"
+                  value=cartDetail.totalPrice
+                  style="display: none;" 
+                )
               
               div(class="form-group")
                 label() Thanh toán

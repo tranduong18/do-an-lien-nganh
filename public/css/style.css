@@ -266,3 +266,108 @@ a.forgotPass{
   object-fit: contain;
 }
 /* End product-detail-image */
+
+.entry-container {
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 15px;
+}
+
+.entry-grid {
+  flex: 0 1 auto; 
+  margin: 0;
+}
+
+.page-content .container {
+  display: flex; 
+}
+
+.page-content .row {
+  width: 100%; 
+}
+
+.page-content .col-lg-9 {
+  flex: 0 0 80%; 
+}
+
+.page-content aside.col-lg-3 {
+  flex: 0 0 20%; 
+}
+
+.sidebar {
+  background-color: #f9f9f9; 
+  padding: 15px; 
+  border-radius: 5px; 
+}
+
+.btn.btn-outline-primary-2.blogCommentSubmit{
+  margin-top: 10px;
+  border: 2px solid #d6a97b; 
+  background-color: transparent; 
+  color: #d6a97b;
+  padding: 10px 20px; 
+  font-size: 14px; 
+  font-weight: 500; 
+  border-radius: 4px; 
+  transition: background-color 0.3s, color 0.3s; 
+  cursor: pointer; 
+}
+
+.btn.btn-outline-primary-2.blogCommentSubmit:hover {
+  background-color: #d6a97b; 
+  color: #fff; 
+}
+
+.btn.btn-outline-primary-2.blogCommentSubmit i.icon-long-arrow-right {
+  margin-left: 8px; 
+  transition: margin-left 0.3s; 
+}
+
+.btn.btn-outline-primary-2.blogCommentSubmit:hover i.icon-long-arrow-right {
+  margin-left: 12px; 
+}
+
+.comment {
+  display: flex; 
+  margin-bottom: 20px; 
+  padding: 15px; 
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.comment-media {
+  margin-right: 15px; 
+}
+
+.comment-media img {
+  width: 50px;
+  height: 50px; 
+  border-radius: 50%; 
+}
+
+.comment-body {
+  flex: 1; 
+}
+
+.comment-user {
+  font-weight: bold; 
+  color: #1a73e8; 
+}
+
+.comment-date {
+  display: block; 
+  font-size: 0.9rem; 
+  color: #888; 
+  margin-top: 5px; 
+}
+
+.comment-content p {
+  margin-top: 10px; 
+  line-height: 1.6; 
+  color: #555; 
+}
+
+.comments>ul>li{
+  list-style-type: none;
+}

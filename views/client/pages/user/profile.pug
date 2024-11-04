@@ -15,7 +15,7 @@ block main
         .col-md-6.col-lg-5(style="margin-left: 40px")
 
           if (user.avatar)
-            img(src=user.avatar width="150px" class="mb-3")
+            img(src=user.avatar width="120px" class="mb-3" style="border-radius: 50%; border: 2px solid #007bff; box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);")
 
           if (user.fullName)
             p Họ tên: <b>#{user.fullName}</b>

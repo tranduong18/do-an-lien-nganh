@@ -85,7 +85,7 @@ module.exports.productWishlist = async (req, products) => {
 module.exports.blog = async (req, find) => {
     const pagination = {
         currentPage: 1,
-        limitItems: 5
+        limitItems: 8
     };
 
     if(req.query.page){
@@ -100,6 +100,25 @@ module.exports.blog = async (req, find) => {
 
     return pagination;
 }
+
+module.exports.blogClient = async (req, blogs) => {
+    const pagination = {
+        currentPage: 1,
+        limitItems: 9
+    };
+
+    if(req.query.page){
+        pagination.currentPage = parseInt(req.query.page);
+    }
+
+    pagination.skip = (pagination.currentPage - 1) * pagination.limitItems;
+
+    const totalItems = blogs.length;
+    const totalPage = Math.ceil(totalItems / pagination.limitItems);
+    pagination.totalPage = totalPage;
+
+    return pagination;
+};
 
 module.exports.blogCategory = async (req, find) => {
     const pagination = {

@@ -386,40 +386,40 @@ module.exports.ordersDetail = async (req, res) => {
     })
 }
 
-module.exports.makeReview = async (req, res) => {
-    const productId = req.body.productId;
-    const orderId = req.body.orderId;
+// module.exports.makeReview = async (req, res) => {
+//     const productId = req.body.productId;
+//     const orderId = req.body.orderId;
 
-    const existReview = await Review.findOne({
-        userId: res.locals.user.id,
-        orderId: orderId,
-        productId: productId
-    });
+//     const existReview = await Review.findOne({
+//         userId: res.locals.user.id,
+//         orderId: orderId,
+//         productId: productId
+//     });
 
-    if(existReview){
-        await Review.updateOne({
-            userId: res.locals.user.id,
-            orderId: orderId,
-            productId: productId
-        }, {
-            rating: parseInt(req.body.rating),
-            review: req.body.review
-        });
-    }
-    else{
-        const reviewInfo = {
-            userId: res.locals.user.id,
-            productId: productId,
-            orderId: orderId,
-            rating: parseInt(req.body.rating),
-            review: req.body.review
-        };
+//     if(existReview){
+//         await Review.updateOne({
+//             userId: res.locals.user.id,
+//             orderId: orderId,
+//             productId: productId
+//         }, {
+//             rating: parseInt(req.body.rating),
+//             review: req.body.review
+//         });
+//     }
+//     else{
+//         const reviewInfo = {
+//             userId: res.locals.user.id,
+//             productId: productId,
+//             orderId: orderId,
+//             rating: parseInt(req.body.rating),
+//             review: req.body.review
+//         };
     
-        const review = new Review(reviewInfo);
-        await review.save();
-    }
+//         const review = new Review(reviewInfo);
+//         await review.save();
+//     }
     
-    req.flash("success", "Cảm ơn bạn đã đánh giá!!");
+//     req.flash("success", "Cảm ơn bạn đã đánh giá!!");
 
-    res.redirect("back");
-}
+//     res.redirect("back");
+// }

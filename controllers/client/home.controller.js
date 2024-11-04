@@ -86,7 +86,7 @@ module.exports.index = async (req, res) => {
         status: "active",
         deleted: false
     })
-    .sort({ position : "desc" }).limit(6)
+    .sort({ position : "desc" }).limit(8)
     .select("-description");
 
     for(const item of blogsNew){

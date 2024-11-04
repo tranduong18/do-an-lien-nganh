@@ -328,3 +328,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 // End Review
+
+const formDiscount = document.querySelector("[apply-discount]");
+if(formDiscount){
+    $(document).ready(function() {
+        $(formDiscount).on('submit', function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    if(response.discount && response.cart) {
+                        $('#discountAmount').text(response.discount.amountDiscount.toLocaleString() + ' ₫');
+                        $('#totalPrice').text(response.cart.totalPrice.toLocaleString() + ' ₫');
+
+                        const newTotalPrice = response.cart.totalPrice; 
+                        $('a[href="/checkout"]').attr('href', `/checkout?totalPrice=${newTotalPrice}`);
+                    } else if(response.errorDiscount){
+                        alert(response.errorDiscount);
+                    }
+                    else{
+                        console.log('Phản hồi không hợp lệ:', response);
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+}
