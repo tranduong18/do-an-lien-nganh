@@ -88,7 +88,8 @@ module.exports.detail = async(req, res) => {
             _id: item.productId
         });
 
-        item.title = product.title
+        item.title = product.title;
+        item.image = product.thumbnail[0];
     }
 
     res.render("admin/pages/orders/detail", {

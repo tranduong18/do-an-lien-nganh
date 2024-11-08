@@ -434,7 +434,6 @@ if(orderStatusElements.length > 0){
 
 // Toggle Password
 const passInput = document.querySelector("#passwordInput");
-console.log(passInput);
 if(passInput){
     const buttonTogglePass = document.querySelector("#togglePassword");
     const eyeIcon = buttonTogglePass.querySelector("[icon]");

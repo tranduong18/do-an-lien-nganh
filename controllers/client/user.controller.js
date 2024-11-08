@@ -276,6 +276,7 @@ module.exports.dashboard = async (req, res) => {
     const ordersToday = await Order.find({
         userId: userId,
         deleted: false,
+        is_payment: true,
         createdAt: {
             $gte: startOfDay, 
             $lte: endOfDay    

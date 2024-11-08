@@ -360,3 +360,23 @@ if(formDiscount){
         });
     });
 }
+
+// Sidebar dashboard
+const listLinkSidebar = document.querySelectorAll("[sidebar]");
+if (listLinkSidebar) {
+    const url = new URL(window.location.href);
+    const currentPath = url.pathname;
+
+    listLinkSidebar.forEach(link => {
+        if(link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+
+        link.addEventListener('click', function() {
+            listButtonNavbar.forEach(btn => btn.classList.remove('active'));
+            
+            link.classList.add('active');
+        });
+    });
+}
+// End Sidebar dashboard
