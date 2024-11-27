@@ -100,7 +100,7 @@ block main
             .col-lg-4.col-md-6.col-sm-6.pb-1
               .product-item.bg-light.mb-4
                 .product-img.position-relative.overflow-hidden
-                  img.img-fluid.w-100(src=item.thumbnail[0], alt=item.title)
+                  img.img-fluid.w-100(src=item.thumbnail[0], alt=item.title, style="aspect-ratio: 9/14; object-fit: cover;height=auto")
                   .product-action
                     a.btn.btn-outline-dark.btn-square(link=`/cart/addIcon/${item.id}` add-to-cart)
                       i.fa.fa-shopping-cart

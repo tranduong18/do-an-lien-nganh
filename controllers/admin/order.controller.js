@@ -14,7 +14,7 @@ module.exports.index = async(req, res) => {
     const pagination = await paginationHelper.order(req, find);
     // Hết Phân trang
 
-    const records = await Order.find(find).limit(pagination.limitItems).skip(pagination.skip);
+    const records = await Order.find(find).limit(pagination.limitItems).skip(pagination.skip).sort({_id: "desc"});;
 
     for(const item of records){
         item.createdAtFormat = moment(item.createdAt).format("DD/MM/YY HH:mm:ss")

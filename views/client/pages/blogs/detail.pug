@@ -117,4 +117,4 @@ block main
                     div.recentBlog
                       span #{item.createdAtFormat}
                       p
-                        a(href='#') #{item.title}
+                        a(href=`/blogs/detail/${item.slug}`) #{item.title}
