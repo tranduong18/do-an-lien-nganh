@@ -365,7 +365,8 @@ module.exports.ordersDetail = async (req, res) => {
         item.image = productInfo.thumbnail[0];
         item.slug = productInfo.slug;
         item.title = productInfo.title;
-        item.totalPrice = parseInt(item.price * item.quantity);
+        item.priceNew = (1 - productInfo.discountPercentage / 100) * productInfo.price;
+        item.totalPrice = parseInt(item.priceNew * item.quantity);
 
 
         const reviewInfo = await Review.findOne({
